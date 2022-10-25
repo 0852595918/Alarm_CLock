@@ -81,6 +81,7 @@ def Widget_Screen():
     btn_logout.grid(row=1, column=3,padx = 20, pady = 20)
 
     widget_screen.mainloop()
+#========================#Digital clock
 def Digital_Clock():
     clock = tk.Tk()
     clock.title('Digital Clock')
@@ -99,6 +100,8 @@ def logout():
     with open('check_remember.txt', mode='w',newline='\n') as f:
         f.write('0')
     widget_screen.destroy()
+
+#======================# Alarm
 def WeekDay():
     days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     today = datetime.today()
@@ -134,8 +137,7 @@ def main_clock():
     global ent_hour,ent_min
     ent_hour = ttk.Entry(bot)
     ent_min = ttk.Entry(bot)
-    var = IntVar()
-    chx_on =ttk.Checkbutton(bot,text = 'ON',variable = var,command = isAlarm)
+    chx_on =tk.Checkbutton(bot,text = 'ON',command = isAlarm)
     ent_hour.grid(row=1, column=1,sticky='W')
     ent_min.grid(row=1, column=2,sticky='W')
     chx_on.grid(row=1, column=3,sticky='W')
@@ -168,12 +170,17 @@ def main_clock():
 #         alarm_min = sb_minute.get()
 #         isAlarm(alarm_hour,alarm_min)
 def isAlarm():
-        hour = ent_hour.get()
-        min = ent_min.get()
-        while True:
-            now = datetime.now()
-            if hour == now.hour and min == now.minute:
+    AlarmHour = ent_hour.get()
+    AlarmMin = ent_min.get()
+    Alarm_Screen.withdraw()
+    widget_screen.withdraw()
+    print(AlarmHour,AlarmMin)
+    while True:
+        now = datetime.now()
+        print(now.hour,now.minute,now.second)
+        if now.hour==int(AlarmHour) :
+            if now.minute==int(AlarmMin):
                 print('Wakeup')
                 playsound('AlarmSound.mp3')
                 break
-            sleep(1)
+        sleep(1)
